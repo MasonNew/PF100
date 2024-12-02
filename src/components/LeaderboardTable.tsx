@@ -16,6 +16,8 @@ export const LeaderboardTable = ({ coins }: LeaderboardTableProps) => {
   const tableRef = useRef<HTMLDivElement>(null);
 
   const handleSort = (key: keyof Coin) => {
+    if (key === 'name' || key === 'symbol') return;
+
     setSortConfig(current => ({
       key,
       direction: current.key === key && current.direction === 'asc' ? 'desc' : 'asc'
@@ -46,38 +48,54 @@ export const LeaderboardTable = ({ coins }: LeaderboardTableProps) => {
     }
   }, [displayCount, sortedCoins.length]);
 
+  const renderHeader = (label: string, key: keyof Coin) => {
+    const isSortable = !['name', 'symbol'].includes(key);
+    return (
+      <th 
+        key={key}
+        className={`py-4 px-6 text-left text-xs font-medium text-gray-300 uppercase tracking-wider ${
+          isSortable ? 'cursor-pointer hover:bg-black/30 transition-colors' : ''
+        }`}
+        onClick={() => isSortable && handleSort(key)}
+      >
+        <div className="flex items-center gap-1">
+          {label}
+          {isSortable && <ArrowUpDown className="w-4 h-4" />}
+        </div>
+      </th>
+    );
+  };
+
   return (
-    <div className="rounded-lg shadow-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-700">
+    <div className="rounded-lg shadow-2xl bg-white/10 backdrop-blur-md border border-white/20">
       <div 
         ref={tableRef}
         className="table-scroll overflow-auto"
         style={{ height: '70vh' }}
       >
         <table className="min-w-full">
-          <thead className="bg-gray-800/50 sticky top-0 z-10">
+          <thead className="bg-white/20 backdrop-blur-md sticky top-0 z-10">
             <tr>
-              {['Rank', 'Name', 'Symbol', 'Price', '24h Change', 'Score'].map((header) => (
-                <th 
-                  key={header}
-                  className="py-4 px-6 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-700/50 transition-colors"
-                  onClick={() => handleSort(header.toLowerCase() as keyof Coin)}
-                >
-                  <div className="flex items-center gap-1">
-                    {header}
-                    <ArrowUpDown className="w-4 h-4" />
-                  </div>
-                </th>
-              ))}
+              {renderHeader('Rank', 'rank')}
+              {renderHeader('Name', 'name')}
+              {renderHeader('Symbol', 'symbol')}
+              {renderHeader('Price', 'price')}
+              {renderHeader('Market Cap', 'marketCap')}
+              {renderHeader('Replies', 'replies')}
+              {renderHeader('Investability Score', 'investabilityScore')}
+              <th className="py-4 px-6 text-left text-xs font-medium text-white uppercase tracking-wider">
+                Link
+              </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-700">
+          <tbody className="divide-y divide-white/10">
             {sortedCoins.slice(0, displayCount).map(coin => (
               <CoinRow key={coin.id} coin={coin} />
             ))}
           </tbody>
         </table>
         {displayCount < sortedCoins.length && (
-          <div className="text-center py-4 text-gray-400">
+          <div className="text-center py-4 text-white">
             <div className="animate-pulse">Loading more coins...</div>
           </div>
         )}

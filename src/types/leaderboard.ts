@@ -4,7 +4,7 @@ export interface Coin {
   name: string;
   symbol: string;
   price: number;
-  priceChange24h: number;
+  replies: number;
   volume24h: number;
   marketCap: number;
   holderCount: number;
@@ -12,6 +12,8 @@ export interface Coin {
   investabilityScore: number;
   isHot: boolean;
   achievements: Achievement[];
+  imageUrl?: string;
+  tokenLink?: string;
 }
 
 export type Achievement = 'ATH' | 'GROWING_COMMUNITY' | 'HIGH_LIQUIDITY';

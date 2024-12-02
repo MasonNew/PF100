@@ -1,19 +1,27 @@
 import React from 'react';
-import { Rocket, Telescope } from 'lucide-react';
 
 export const LeaderboardHeader = () => {
   return (
-    <div className="text-center mb-8 animate-fade-in">
-      <h1 className="text-5xl font-bold mb-4 flex items-center justify-center gap-3 animate-glow">
-        <Rocket className="w-10 h-10 text-pink-500" />
-        PF100
-        <Telescope className="w-10 h-10 text-pink-500" />
-      </h1>
-      <p className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 font-semibold mb-2">
-        The Ultimate Meme Coin Observatory
-      </p>
-      <div className="text-sm text-gray-300 animate-pulse">
-        Live Updates Every 5 Minutes
+    <div className="text-center mb-4 -mt-4 animate-fade-in">
+      <div className="flex justify-center mb-2">
+        <img 
+          src="/pf100-logo.png" 
+          alt="PF100 Market Logo" 
+          className="w-48 h-48 object-contain drop-shadow-glow animate-float"
+        />
+      </div>
+      <div className="relative z-10 -mt-12">
+        <h1 className="text-6xl font-bold mb-4">
+          <span className="font-extrabold text-white animate-glow">
+            PF100 Market
+          </span>
+        </h1>
+        <p className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 font-semibold mb-2">
+          The Top 100 Meme Coins Ever Created On pump.fun
+        </p>
+        <div className="text-sm text-white/80 animate-pulse">
+          Live Updates Every 5 Minutes
+        </div>
       </div>
     </div>
   );

@@ -1,23 +1,101 @@
 import { useState, useEffect } from 'react';
 import { Coin } from '../types/leaderboard';
 
-// Simulated data for demonstration
-const generateMockData = (): Coin[] => {
-  return Array.from({ length: 100 }, (_, i) => ({
-    id: `coin-${i + 1}`,
-    rank: i + 1,
-    name: `Meme Coin ${i + 1}`,
-    symbol: `MEME${i + 1}`,
-    price: Math.random() * 100,
-    priceChange24h: (Math.random() * 40) - 20,
-    volume24h: Math.random() * 1000000,
-    marketCap: Math.random() * 10000000,
-    holderCount: Math.floor(Math.random() * 10000),
-    communityScore: Math.floor(Math.random() * 10) + 1,
-    investabilityScore: Math.floor(Math.random() * 100),
-    isHot: Math.random() > 0.8,
-    achievements: []
-  }));
+interface Token {
+  name: string;
+  market_cap: number;
+  description: string;
+  replies: number;
+  image_url: string;
+  token_url: string;
+}
+
+const API_ENDPOINT = 'https://pf100api.onrender.com/tokens';
+
+// Calculate investability score components
+const calculateInvestabilityScore = (token: Token, totalReplies: number) => {
+  // Market Cap Score (0-40 points)
+  // Higher market cap = more established, but not too high to miss growth potential
+  const marketCapScore = (() => {
+    if (token.market_cap >= 1_000_000_000) return 20; // Very high market cap
+    if (token.market_cap >= 100_000_000) return 40; // Sweet spot
+    if (token.market_cap >= 10_000_000) return 35;
+    if (token.market_cap >= 1_000_000) return 30;
+    if (token.market_cap >= 100_000) return 25;
+    return 15; // Very low market cap
+  })();
+
+  // Community Engagement Score (0-40 points)
+  // Based on replies relative to other tokens
+  const replyPercentile = (token.replies / totalReplies) * 100;
+  const communityScore = (() => {
+    if (replyPercentile >= 20) return 40; // Top 20% of engagement
+    if (replyPercentile >= 10) return 35;
+    if (replyPercentile >= 5) return 30;
+    if (replyPercentile >= 1) return 25;
+    return 15;
+  })();
+
+  // Project Description Score (0-20 points)
+  // Quality/length of project description as a basic indicator
+  const descriptionScore = (() => {
+    if (!token.description) return 0;
+    if (token.description.length >= 200) return 20;
+    if (token.description.length >= 100) return 15;
+    if (token.description.length >= 50) return 10;
+    return 5;
+  })();
+
+  // Total score out of 100
+  return Math.min(100, marketCapScore + communityScore + descriptionScore);
+};
+
+const fetchPumpFunTokens = async (): Promise<Coin[]> => {
+  try {
+    const response = await fetch(`${API_ENDPOINT}?limit=100`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const tokens: Token[] = await response.json();
+    console.log('API Response:', tokens);
+
+    // Calculate total replies for relative scoring
+    const totalReplies = tokens.reduce((sum, token) => sum + token.replies, 0);
+
+    return tokens.map((token, index) => {
+      // Extract token address from URL
+      const tokenAddress = token.token_url.split('/').pop() || `token-${index}`;
+      
+      // Create new token URL format
+      const formattedTokenUrl = `https://pump.fun/coin/${tokenAddress}`;
+
+      // Calculate investability score
+      const investabilityScore = calculateInvestabilityScore(token, totalReplies);
+
+      return {
+        id: tokenAddress,
+        rank: index + 1,
+        name: token.name,
+        symbol: token.name.split(' ')[0].toUpperCase(),
+        price: token.market_cap / 1_000_000_000,
+        replies: token.replies,
+        volume24h: 0,
+        marketCap: token.market_cap,
+        holderCount: 0,
+        communityScore: Math.min(10, Math.floor(token.replies / 100)),
+        investabilityScore,
+        isHot: token.replies > 1000,
+        achievements: [],
+        imageUrl: token.image_url,
+        tokenLink: formattedTokenUrl
+      };
+    });
+  } catch (error) {
+    console.error('Error fetching tokens:', error);
+    throw error;
+  }
 };
 
 export const useLeaderboardData = () => {
@@ -26,20 +104,21 @@ export const useLeaderboardData = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        // Simulate API call
-        const data = generateMockData();
+        const data = await fetchPumpFunTokens();
         setCoins(data);
-        setLoading(false);
+        setError(null);
       } catch (err) {
-        setError('Failed to fetch leaderboard data');
+        console.error('Error in useLeaderboardData:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch leaderboard data');
+      } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 5 * 60 * 1000); // Refresh every 5 minutes
+    const interval = setInterval(fetchData, 5 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
