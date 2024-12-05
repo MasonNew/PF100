@@ -75,7 +75,7 @@ function App() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <ScoreComponents coins={coins} />
-              <ScoreDistribution coins={coins} />
+              <ComparisonTool coins={coins} />
             </div>
           </div>
         )}
