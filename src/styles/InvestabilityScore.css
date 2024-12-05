@@ -1,0 +1,55 @@
+.tooltip-container {
+  position: relative;
+}
+
+.tooltip-container .score-tooltip {
+  display: none;
+  background: rgba(18, 18, 18, 0.95);
+  border-radius: 4px;
+  padding: 6px 8px;
+  width: 140px;
+  position: absolute;
+  top: -65px;
+  right: -10px;
+  z-index: 50;
+  font-size: 11px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip-container:hover .score-tooltip {
+  display: block;
+}
+
+.score-tooltip-header {
+  color: #fff;
+  font-size: 11px;
+  margin-bottom: 4px;
+  opacity: 0.9;
+}
+
+.score-tooltip-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px 0;
+  color: #fff;
+}
+
+.score-tooltip-label {
+  opacity: 0.7;
+}
+
+.score-tooltip-value {
+  font-weight: 500;
+}
+
+.score-info-icon {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  color: #fff;
+}
+
+.tooltip-container:hover .score-info-icon {
+  opacity: 1;
+} 

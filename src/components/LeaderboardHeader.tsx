@@ -1,8 +1,12 @@
 import React from 'react';
+import { ShareButton } from './ShareButton';
 
 export const LeaderboardHeader = () => {
   return (
-    <div className="text-center mb-4 -mt-4 animate-fade-in">
+    <div className="text-center mb-4 -mt-4 animate-fade-in relative">
+      <div className="absolute top-4 right-4">
+        <ShareButton />
+      </div>
       <div className="flex justify-center mb-2">
         <img 
           src="/pf100-logo.png" 

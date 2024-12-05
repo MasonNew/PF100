@@ -1,6 +1,7 @@
 import React from 'react';
 import { TrendingUp, TrendingDown, Flame, Moon, MessageCircle, ExternalLink, HelpCircle } from 'lucide-react';
 import { Coin } from '../types/leaderboard';
+import { InvestabilityScore } from './InvestabilityScore';
 
 interface CoinRowProps {
   coin: Coin;
@@ -79,22 +80,11 @@ export const CoinRow = ({ coin }: CoinRowProps) => {
           {formatNumber(coin.replies)}
         </div>
       </td>
-      <td className="py-4 px-6 group relative">
-        <div className="flex items-center gap-2">
-          <div className="w-full bg-white/10 rounded-full h-2.5">
-            <div 
-              className="bg-gradient-to-r from-pink-500 to-purple-500 h-2.5 rounded-full transition-all duration-500"
-              style={{ width: `${coin.investabilityScore}%` }}
-            ></div>
-          </div>
-          <span className="text-sm text-white/90">{coin.investabilityScore}</span>
-          <div className="relative inline-block">
-            <HelpCircle className="w-4 h-4 text-white/60 hover:text-pink-500 cursor-help" />
-            <div className="absolute invisible group-hover:visible bg-white/10 backdrop-blur-md text-white p-3 rounded-lg shadow-lg -top-24 right-0 w-48 z-10">
-              {investabilityTooltip}
-            </div>
-          </div>
-        </div>
+      <td className="py-4 px-6">
+        <InvestabilityScore 
+          score={coin.investabilityScore} 
+          breakdown={coin.investabilityBreakdown}
+        />
       </td>
       <td className="py-4 px-6">
         <a 

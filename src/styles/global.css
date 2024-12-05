@@ -1,0 +1,18 @@
+/* Add these styles to handle select dropdowns globally */
+select option {
+  background-color: #111827;
+  color: white;
+  padding: 8px;
+}
+
+select option:hover {
+  background-color: #374151;
+}
+
+select option:checked {
+  background-color: #EC4899;
+}
+
+select option:disabled {
+  color: rgba(255, 255, 255, 0.5);
+} 

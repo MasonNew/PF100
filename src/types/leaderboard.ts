@@ -10,10 +10,16 @@ export interface Coin {
   holderCount: number;
   communityScore: number;
   investabilityScore: number;
+  score: number;
+  investabilityBreakdown: {
+    marketCap: number;
+    communityEngagement: number;
+    holders: number;
+  };
   isHot: boolean;
   achievements: Achievement[];
   imageUrl?: string;
-  tokenLink?: string;
+  tokenLink: string;
 }
 
 export type Achievement = 'ATH' | 'GROWING_COMMUNITY' | 'HIGH_LIQUIDITY';
@@ -22,3 +28,5 @@ export interface SortConfig {
   key: keyof Coin;
   direction: 'asc' | 'desc';
 }
+
+export type MetricType = 'score' | 'replies' | 'marketCap';
