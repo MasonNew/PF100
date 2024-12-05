@@ -35,28 +35,27 @@ const fetchPumpFunTokens = async (): Promise<Coin[]> => {
 
       // Calculate scores
       const marketCapScore = (() => {
-        if (token.market_cap >= 1_000_000_000) return 20;
-        if (token.market_cap >= 100_000_000) return 40;
-        if (token.market_cap >= 10_000_000) return 35;
-        if (token.market_cap >= 1_000_000) return 30;
-        if (token.market_cap >= 100_000) return 25;
-        return 15;
+        if (token.market_cap >= 1_000_000_000) return 30;
+        if (token.market_cap >= 100_000_000) return 25;
+        if (token.market_cap >= 10_000_000) return 20;
+        if (token.market_cap >= 1_000_000) return 15;
+        return 10;
       })();
 
       const replyPercentile = (token.replies / totalReplies) * 100;
       const communityScore = (() => {
-        if (replyPercentile >= 20) return 40;
-        if (replyPercentile >= 10) return 35;
-        if (replyPercentile >= 5) return 30;
-        if (replyPercentile >= 1) return 25;
+        if (replyPercentile >= 20) return 35;
+        if (replyPercentile >= 10) return 30;
+        if (replyPercentile >= 5) return 25;
+        if (replyPercentile >= 1) return 20;
         return 15;
       })();
 
       const holdersScore = (() => {
         if (!token.description) return 0;
-        if (token.description.length >= 200) return 20;
-        if (token.description.length >= 100) return 15;
-        if (token.description.length >= 50) return 10;
+        if (token.description.length >= 200) return 35;
+        if (token.description.length >= 100) return 25;
+        if (token.description.length >= 50) return 15;
         return 5;
       })();
 

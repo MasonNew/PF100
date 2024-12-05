@@ -35,9 +35,9 @@ export const CoinRow = ({ coin }: CoinRowProps) => {
   const investabilityTooltip = (
     <div className="text-xs space-y-1">
       <div className="font-semibold mb-1">Investability Score Components:</div>
-      <div>• Market Cap (40%)</div>
-      <div>• Community Engagement (40%)</div>
-      <div>• Project Description (20%)</div>
+      <div>• Market Cap (30%)</div>
+      <div>• Community Engagement (35%)</div>
+      <div>• Project Description (35%)</div>
     </div>
   );
 

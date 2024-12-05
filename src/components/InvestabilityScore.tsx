@@ -36,15 +36,15 @@ export const InvestabilityScore = ({ score, breakdown }: Props) => {
           <div className="score-tooltip-header">Score Components</div>
           <div className="score-tooltip-item">
             <span className="score-tooltip-label">Market Cap</span>
-            <span className="score-tooltip-value">{breakdown.marketCap}%</span>
+            <span className="score-tooltip-value">30%</span>
           </div>
           <div className="score-tooltip-item">
             <span className="score-tooltip-label">Community</span>
-            <span className="score-tooltip-value">{breakdown.communityEngagement}%</span>
+            <span className="score-tooltip-value">35%</span>
           </div>
           <div className="score-tooltip-item">
             <span className="score-tooltip-label">Holders</span>
-            <span className="score-tooltip-value">{breakdown.holders}%</span>
+            <span className="score-tooltip-value">35%</span>
           </div>
         </div>
       </div>
