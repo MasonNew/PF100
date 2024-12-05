@@ -6,4 +6,5 @@ export { ActivityTimeline } from './ActivityTimeline';
 export { ComparisonTool } from './ComparisonTool';
 export { SmartFilters } from './SmartFilters';
 export { ExportTools } from './ExportTools';
-export { AlertSystem } from './AlertSystem'; 
+export { AlertSystem } from './AlertSystem';
+export * from './ScoreComponents'; 
