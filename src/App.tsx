@@ -15,7 +15,7 @@ import { AlertSystem } from './components/features/AlertSystem';
 import { ScoreComponents } from './components/features/ScoreComponents';
 
 function App() {
-  const { coins, loading, error, refetch } = useLeaderboardData();
+  const { coins, loading, error } = useLeaderboardData();
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [filteredCoins, setFilteredCoins] = useState(coins);
 
@@ -35,14 +35,8 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#111111] via-[#1a1a1a] to-[#111111]">
-        <div className="text-red-400 mb-4">{error}</div>
-        <button 
-          onClick={refetch}
-          className="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-colors"
-        >
-          Retry
-        </button>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#111111] via-[#1a1a1a] to-[#111111]">
+        <div className="text-red-400">{error}</div>
       </div>
     );
   }
