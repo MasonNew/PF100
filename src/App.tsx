@@ -42,45 +42,51 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-b from-[#111111] via-[#1a1a1a] to-[#111111]">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Main Content */}
-        <LeaderboardHeader />
-        <LeaderboardTable coins={filteredCoins} />
-        
-        {/* Advanced Toggle */}
-        <div className="flex justify-end border-t border-white/10 pt-4">
-          <Toggle
-            checked={showAdvanced}
-            onChange={setShowAdvanced}
-            label="Advanced Details"
-          />
-        </div>
-
-        {/* Advanced Features */}
-        {showAdvanced && (
-          <div className="space-y-8">
-            <MarketStats coins={coins} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <SmartFilters coins={coins} onFilterChange={setFilteredCoins} />
-              <ExportTools coins={filteredCoins} />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <TrendingSection coins={coins} />
-              <ScoreDistribution coins={coins} />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <TokenCategories coins={coins} />
-              <AlertSystem coins={coins} />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <ScoreComponents coins={coins} />
-              <ComparisonTool coins={coins} />
-            </div>
+    <div className="min-h-screen bg-gradient-to-b from-[#111111] via-[#1a1a1a] to-[#111111]">
+      {/* Warning Banner */}
+      <div className="bg-red-600 text-white py-3 px-4 text-center font-bold tracking-wide">
+        WE ARE NOT LIVE ON PUMP.FUN YET, ALL CURRENT COINS OUT THERE ARE SCAMS
+      </div>
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto space-y-8">
+          {/* Main Content */}
+          <LeaderboardHeader />
+          <LeaderboardTable coins={filteredCoins} />
+          
+          {/* Advanced Toggle */}
+          <div className="flex justify-end border-t border-white/10 pt-4">
+            <Toggle
+              checked={showAdvanced}
+              onChange={setShowAdvanced}
+              label="Advanced Details"
+            />
           </div>
-        )}
 
-        <Disclaimer />
+          {/* Advanced Features */}
+          {showAdvanced && (
+            <div className="space-y-8">
+              <MarketStats coins={coins} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <SmartFilters coins={coins} onFilterChange={setFilteredCoins} />
+                <ExportTools coins={filteredCoins} />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TrendingSection coins={coins} />
+                <ScoreDistribution coins={coins} />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TokenCategories coins={coins} />
+                <AlertSystem coins={coins} />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ScoreComponents coins={coins} />
+                <ComparisonTool coins={coins} />
+              </div>
+            </div>
+          )}
+
+          <Disclaimer />
+        </div>
       </div>
     </div>
   );
