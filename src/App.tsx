@@ -13,6 +13,7 @@ import { SmartFilters } from './components/features/SmartFilters';
 import { ExportTools } from './components/features/ExportTools';
 import { AlertSystem } from './components/features/AlertSystem';
 import { ScoreComponents } from './components/features/ScoreComponents';
+import './styles/background.css';
 
 function App() {
   const { coins, loading, error } = useLeaderboardData();
@@ -27,7 +28,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#111111] via-[#1a1a1a] to-[#111111]">
+      <div className="min-h-screen flex items-center justify-center animated-background">
         <div className="animate-spin rounded-full h-12 w-12 border-4 border-pink-500 border-t-transparent"></div>
       </div>
     );
@@ -35,17 +36,18 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#111111] via-[#1a1a1a] to-[#111111]">
+      <div className="min-h-screen flex items-center justify-center animated-background">
         <div className="text-red-400">{error}</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#111111] via-[#1a1a1a] to-[#111111]">
-      {/* Warning Banner */}
-      <div className="bg-red-600 text-white py-3 px-4 text-center font-bold tracking-wide">
-        WE ARE NOT LIVE ON PUMP.FUN YET, ALL CURRENT COINS OUT THERE ARE SCAMS
+    <div className="min-h-screen animated-background">
+      <div className="floating-particles">
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className="particle" />
+        ))}
       </div>
       <div className="p-8">
         <div className="max-w-7xl mx-auto space-y-8">
