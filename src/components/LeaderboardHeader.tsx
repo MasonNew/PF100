@@ -7,7 +7,7 @@ export const LeaderboardHeader = () => {
     <div className="text-center mb-4 -mt-4 animate-fade-in relative">
       <div className="absolute top-4 right-4 flex items-center gap-2">
         <a
-          href="https://twitter.com/PumpFunIndex"
+          href="https://x.com/PF100Market"
           target="_blank"
           rel="noopener noreferrer"
           className="p-2 bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white rounded-lg transition-colors"
@@ -24,14 +24,14 @@ export const LeaderboardHeader = () => {
         </a>
         <ShareButton />
       </div>
-      <div className="flex justify-center mb-2">
+      <div className="flex justify-center mb-1">
         <img 
           src="/pumpindex.PNG" 
           alt="PumpFun Index Logo" 
-          className="w-48 h-48 object-contain drop-shadow-glow animate-float"
+          className="w-32 h-32 object-contain drop-shadow-glow animate-float"
         />
       </div>
-      <div className="relative z-10 -mt-12">
+      <div className="relative z-10">
         <h1 className="text-6xl font-bold mb-4">
           <span className="font-extrabold text-white animate-glow">
             PumpFun Index
