@@ -1,47 +1,68 @@
 import React from 'react';
-import { ShareButton } from './ShareButton';
-import { Twitter, Send } from 'lucide-react';
+import { TrendingUp, MessageCircle, BarChart3, Users } from 'lucide-react';
 
-export const LeaderboardHeader = () => {
+interface HeaderStats {
+  totalReplies: number;
+  averageScore: number;
+  totalTokens: number;
+  activeUsers: number;
+}
+
+export const LeaderboardHeader = ({ coins }: { coins: any[] }) => {
+  // Calculate stats from coins
+  const stats: HeaderStats = {
+    totalReplies: coins.reduce((sum, coin) => sum + coin.replies, 0),
+    averageScore: coins.reduce((sum, coin) => sum + coin.investabilityScore, 0) / coins.length,
+    totalTokens: coins.length,
+    activeUsers: Math.floor(coins.reduce((sum, coin) => sum + coin.replies, 0) / 3)
+  };
+
   return (
-    <div className="text-center mb-4 -mt-4 animate-fade-in relative">
-      <div className="absolute top-4 right-4 flex items-center gap-2">
-        <a
-          href="https://x.com/PF100Market"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white rounded-lg transition-colors"
-        >
-          <Twitter className="w-4 h-4" />
-        </a>
-        <a
-          href="https://t.me/PumpFunIndex"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2 bg-[#0088cc] hover:bg-[#0077b3] text-white rounded-lg transition-colors"
-        >
-          <Send className="w-4 h-4" />
-        </a>
-        <ShareButton />
-      </div>
-      <div className="flex justify-center mb-1">
+    <div className="relative z-10 -mt-4">
+      <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/10 via-transparent to-transparent blur-3xl -z-10"></div>
+      <div className="text-center">
+        {/* Logo */}
         <img 
-          src="/pumpindex.PNG" 
-          alt="PumpFun Index Logo" 
-          className="w-32 h-32 object-contain drop-shadow-glow animate-float"
+          src="/hub.png" 
+          alt="The Pump Hub Logo" 
+          className="w-64 h-64 object-contain animate-float mx-auto -mb-16"
+          style={{
+            animation: 'float 3s ease-in-out infinite'
+          }}
         />
-      </div>
-      <div className="relative z-10">
-        <h1 className="text-6xl font-bold mb-4">
-          <span className="font-extrabold text-white animate-glow">
-            PumpFun Index
-          </span>
-        </h1>
-        <p className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 font-semibold mb-2">
-          The Top 100 Meme Coins Ever Created On pump.fun
+
+        <div className="relative">
+          <h1 className="text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-500 animate-gradient font-orbitron">
+            The Pump Hub
+          </h1>
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-full blur-3xl -z-10"></div>
+        </div>
+        <p className="text-gray-300 text-xl max-w-2xl mx-auto font-light tracking-wide font-poppins mt-1">
+          Your Premier Destination for Token Discovery and Analysis
         </p>
-        <div className="text-sm text-white/80 animate-pulse">
-          Live Updates Every 5 Minutes
+        
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto px-4 mt-3">
+          <div className="stat-card">
+            <MessageCircle className="w-5 h-5 text-emerald-400" />
+            <div className="stat-value">{stats.totalReplies.toLocaleString()}</div>
+            <div className="stat-label">Total Replies</div>
+          </div>
+          <div className="stat-card">
+            <BarChart3 className="w-5 h-5 text-cyan-400" />
+            <div className="stat-value">{stats.averageScore.toFixed(2)}</div>
+            <div className="stat-label">Average Score</div>
+          </div>
+          <div className="stat-card">
+            <TrendingUp className="w-5 h-5 text-emerald-400" />
+            <div className="stat-value">{stats.totalTokens}</div>
+            <div className="stat-label">Total Tokens</div>
+          </div>
+          <div className="stat-card">
+            <Users className="w-5 h-5 text-cyan-400" />
+            <div className="stat-value">{stats.activeUsers.toLocaleString()}</div>
+            <div className="stat-label">Active Users</div>
+          </div>
         </div>
       </div>
     </div>
